@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Order:</strong>
+  <%= @order_shipment.order %>
+</p>
+
+<p>
+  <strong>Ship date:</strong>
+  <%= @order_shipment.ship_date %>
+</p>
+
+<p>
+  <strong>Tracking number:</strong>
+  <%= @order_shipment.tracking_number %>
+</p>
+
+<%= link_to 'Edit', edit_order_shipment_path(@order_shipment) %> |
+<%= link_to 'Back', order_shipments_path %>

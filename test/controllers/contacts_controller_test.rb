@@ -17,7 +17,7 @@ class ContactsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create contact" do
     assert_difference('Contact.count') do
-      post contacts_url, params: { contact: { address: @contact.address, billto_id: @contact.billto_id, city: @contact.city, contact_type: @contact.contact_type, email: @contact.email, id_cs: @contact.id_cs, name: @contact.name, phone: @contact.phone, rep_id: @contact.rep_id, state-code: @contact.state-code, storenum: @contact.storenum, suite: @contact.suite, zip: @contact.zip } }
+      post contacts_url, params: { contact: { address: @contact.address, billto_id: @contact.billto_id, city: @contact.city, contact_type: @contact.contact_type, email: @contact.email, id_cs: @contact.id_cs, name: @contact.name, phone: @contact.phone, rep_id: @contact.rep_id, state_code: @contact.state_code, storenum: @contact.storenum, suite: @contact.suite, zip: @contact.zip } }
     end
 
     assert_redirected_to contact_url(Contact.last)
@@ -34,7 +34,7 @@ class ContactsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update contact" do
-    patch contact_url(@contact), params: { contact: { address: @contact.address, billto_id: @contact.billto_id, city: @contact.city, contact_type: @contact.contact_type, email: @contact.email, id_cs: @contact.id_cs, name: @contact.name, phone: @contact.phone, rep_id: @contact.rep_id, state-code: @contact.state-code, storenum: @contact.storenum, suite: @contact.suite, zip: @contact.zip } }
+    patch contact_url(@contact), params: { contact: { address: @contact.address, billto_id: @contact.billto_id, city: @contact.city, contact_type: @contact.contact_type, email: @contact.email, id_cs: @contact.id_cs, name: @contact.name, phone: @contact.phone, rep_id: @contact.rep_id, state_code: @contact.state_code, storenum: @contact.storenum, suite: @contact.suite, zip: @contact.zip } }
     assert_redirected_to contact_url(@contact)
   end
 

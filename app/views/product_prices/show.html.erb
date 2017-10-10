@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Product:</strong>
+  <%= @product_price.product %>
+</p>
+
+<p>
+  <strong>Billto:</strong>
+  <%= @product_price.billto %>
+</p>
+
+<p>
+  <strong>Retail:</strong>
+  <%= @product_price.retail %>
+</p>
+
+<p>
+  <strong>Cost:</strong>
+  <%= @product_price.cost %>
+</p>
+
+<p>
+  <strong>Seed year:</strong>
+  <%= @product_price.seed_year %>
+</p>
+
+<%= link_to 'Edit', edit_product_price_path(@product_price) %> |
+<%= link_to 'Back', product_prices_path %>

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  company: one
+  name: MyString
+  product_type: one
+  upc: MyString
+  sku: MyString
+  product_type_value: 1
+
+two:
+  company: two
+  name: MyString
+  product_type: two
+  upc: MyString
+  sku: MyString
+  product_type_value: 1

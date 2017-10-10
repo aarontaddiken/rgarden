@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ponum: MyString
+  order_date: 2017-10-10
+  request_ship_date: 2017-10-10
+  invoice_date: 2017-10-10
+  total: 9.99
+  note: MyText
+  contact: one
+  seed_year: 1
+
+two:
+  ponum: MyString
+  order_date: 2017-10-10
+  request_ship_date: 2017-10-10
+  invoice_date: 2017-10-10
+  total: 9.99
+  note: MyText
+  contact: two
+  seed_year: 1

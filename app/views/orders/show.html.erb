@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Ponum:</strong>
+  <%= @order.ponum %>
+</p>
+
+<p>
+  <strong>Order date:</strong>
+  <%= @order.order_date %>
+</p>
+
+<p>
+  <strong>Request ship date:</strong>
+  <%= @order.request_ship_date %>
+</p>
+
+<p>
+  <strong>Invoice date:</strong>
+  <%= @order.invoice_date %>
+</p>
+
+<p>
+  <strong>Total:</strong>
+  <%= @order.total %>
+</p>
+
+<p>
+  <strong>Note:</strong>
+  <%= @order.note %>
+</p>
+
+<p>
+  <strong>Contact:</strong>
+  <%= @order.contact %>
+</p>
+
+<p>
+  <strong>Seed year:</strong>
+  <%= @order.seed_year %>
+</p>
+
+<%= link_to 'Edit', edit_order_path(@order) %> |
+<%= link_to 'Back', orders_path %>
