@@ -18,9 +18,8 @@
   <tbody>
     <% @products.each do |product| %>
       <tr>
-        <td><%= product.company %></td>
+        <td><%= product.contact.name %></td>
         <td><%= product.name %></td>
-        <td><%= product.product_type %></td>
         <td><%= product.upc %></td>
         <td><%= product.sku %></td>
         <td><%= product.product_type_value %></td>
