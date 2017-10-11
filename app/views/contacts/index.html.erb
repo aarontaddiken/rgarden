@@ -36,7 +36,7 @@
         <td><%= contact.email %></td>
         <td><%= contact.phone %></td>
         <td><%= contact.contact_type %></td>
-        <td><%= contact.billto.name %></td>
+        <td><%= contact.billto&.name %><%= contact.billto_id %></td>
         <td><%= contact.rep_id %></td>
         <td><%= contact.id_cs %></td>
         <td><%= link_to 'Show', contact %></td>
