@@ -9,11 +9,18 @@
   </head>
 
   <body>
-  	    <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+<% if user_signed_in? %>
+      <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <a class="navbar-brand" href="#">Need Login Stuff</a>
+      <% if user_signed_in? %>
+       <%= link_to('Logout', destroy_user_session_path, method: :delete) %>   
+       <%= link_to "User Info", edit_user_registration_path %>     
+      <% else %>
+       <%= link_to('Login', new_user_session_path)  %>  
+
+<% end %>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item active">
@@ -33,7 +40,11 @@
           </li>
         </ul>
       </div>
+      <% else %>
+
+      <% end %>
     </nav>
+    <p class="alert"><%= alert %></p>
     <%= yield %>
   </body>
 </html>
