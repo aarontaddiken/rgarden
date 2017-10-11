@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 20171010225242) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "contact", id: :integer, comment: "This is the Renee's Garden id number.  The Cornucopia id number is in id_CS in case of confilicts between RG and CS", default: nil, force: :cascade, comment: "Stores Company, Customers, Reps, etc.  " do |t|
+  create_table "contact", id: :integer, force: :cascade, comment: "Stores Company, Customers, Reps, etc.  " do |t|
     t.string "name", limit: 100, default: "", null: false
     t.string "storenum", limit: 25, default: "", null: false
     t.string "address", limit: 100, default: "", null: false
@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(version: 20171010225242) do
     t.string "tracking_number", limit: 50, null: false
   end
 
-  create_table "orders", id: :integer, default: nil, force: :cascade do |t|
+  create_table "orders", id: :serial, default: nil, force: :cascade do |t|
     t.string "ponum", limit: 25, default: "", null: false
     t.date "order_date", default: -> { "('now'::text)::date" }, null: false
     t.date "request_ship_date", default: -> { "('now'::text)::date" }, null: false

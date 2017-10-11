@@ -14,6 +14,8 @@ Things you may want to cover:
 * Database creation
 Local: 
 rails db:schema:dump (this grabs the schema from the existing DB)
+Load data from a local backup:
+psql -d rgarden -f /Users/aarontaddiken/Downloads/RgardenDB.sql
 
 # HEROKU Setup
 

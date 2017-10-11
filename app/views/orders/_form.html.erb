@@ -11,47 +11,84 @@
     </div>
   <% end %>
 
+<div id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="card">
+    <div class="card-header" role="tab" id="headingOne">
+      <h5 class="mb-0">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Store/Order Info
+        </a>
+      </h5>
+    </div>
+
+    <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+  <div class="card-block">
+
   <div class="field">
-    <%= form.label :ponum %>
+    <%= form.label :contact_id, 'OSH Store' %>
+    <%= form.collection_select(:contact_id, Contact.where(contact_type: 4), :id, :name, class: 'form-control', include_blank: 'Select Customer') %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ponum, 'PO Number' %>
     <%= form.text_field :ponum, id: :order_ponum %>
   </div>
 
   <div class="field">
-    <%= form.label :order_date %>
-    <%= form.date_select :order_date, id: :order_order_date %>
+    <%= form.label :order_date, 'Order Date' %>
+    <% if @order.order_date? %>
+    <%= form.date_field :order_date %>
+    <% else %>
+    <%= form.date_field :order_date, :value => DateTime.now.strftime('%Y-%m-%d') %>
+    <% end %>
   </div>
 
   <div class="field">
-    <%= form.label :request_ship_date %>
-    <%= form.date_select :request_ship_date, id: :order_request_ship_date %>
+    <%= form.label :contact_id, 'OSH Store' %>
+    <%= form.collection_select(:contact_id, Contact.where(contact_type: 8), :id, :name, class: 'form-control', include_blank: 'Select Rep') %>
   </div>
 
   <div class="field">
-    <%= form.label :invoice_date %>
-    <%= form.date_select :invoice_date, id: :order_invoice_date %>
-  </div>
-
-  <div class="field">
-    <%= form.label :total %>
-    <%= form.text_field :total, id: :order_total %>
-  </div>
-
-  <div class="field">
-    <%= form.label :note %>
+    <%= form.label :note %></br>
     <%= form.text_area :note, id: :order_note %>
   </div>
 
-  <div class="field">
-    <%= form.label :contact_id %>
-    <%= form.text_field :contact_id, id: :order_contact_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :seed_year %>
-    <%= form.number_field :seed_year, id: :order_seed_year %>
-  </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class: 'btn btn-primary' %>
   </div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" role="tab" id="headingTwo">
+      <h5 class="mb-0">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Items
+        </a>
+      </h5>
+    </div>
+    <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="card-block">
+     UPC | QTY
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" role="tab" id="headingThree">
+      <h5 class="mb-0">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          Total by SKU
+        </a>
+      </h5>
+    </div>
+    <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
+      <div class="card-block">
+See Rick about this one
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <% end %>
