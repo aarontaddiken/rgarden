@@ -68,7 +68,11 @@
     </div>
     <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
       <div class="card-block">
-     UPC | QTY
+        <% if @order.id.present? %>
+          I have an ID YAY!
+        <% else %>
+         I need an ID before I can make items ;-)
+        <% end %>
       </div>
     </div>
   </div>
