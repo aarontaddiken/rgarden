@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171010225242) do
+ActiveRecord::Schema.define(version: 20171012010339) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "contact", id: :integer, force: :cascade, comment: "Stores Company, Customers, Reps, etc.  " do |t|
+  create_table "contact", id: :serial, comment: "This is the Renee's Garden id number.  The Cornucopia id number is in id_CS in case of confilicts between RG and CS", force: :cascade, comment: "Stores Company, Customers, Reps, etc.  " do |t|
     t.string "name", limit: 100, default: "", null: false
     t.string "storenum", limit: 25, default: "", null: false
     t.string "address", limit: 100, default: "", null: false
@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(version: 20171010225242) do
     t.string "tracking_number", limit: 50, null: false
   end
 
-  create_table "orders", id: :serial, default: nil, force: :cascade do |t|
+  create_table "orders", id: :serial, force: :cascade do |t|
     t.string "ponum", limit: 25, default: "", null: false
     t.date "order_date", default: -> { "('now'::text)::date" }, null: false
     t.date "request_ship_date", default: -> { "('now'::text)::date" }, null: false
@@ -75,10 +75,34 @@ ActiveRecord::Schema.define(version: 20171010225242) do
     t.integer "seed_year", null: false
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string "first_name", default: "", null: false
+    t.string "last_name", default: "", null: false
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.inet "current_sign_in_ip"
+    t.inet "last_sign_in_ip"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "contact_id"
+    t.index ["contact_id"], name: "index_users_on_contact_id"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["first_name"], name: "index_users_on_first_name"
+    t.index ["last_name"], name: "index_users_on_last_name"
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
   add_foreign_key "order_item", "orders", name: "fk_orders", on_update: :cascade, on_delete: :cascade
   add_foreign_key "order_item", "product", name: "fk_product", on_update: :cascade, on_delete: :cascade
   add_foreign_key "order_shipment", "orders", name: "order_shipment_order_id_fkey", on_update: :cascade, on_delete: :cascade
   add_foreign_key "orders", "contact", name: "fk_contact", on_update: :cascade, on_delete: :cascade
   add_foreign_key "product_price", "contact", column: "billto_id", name: "product_price_billto_id_fkey"
   add_foreign_key "product_price", "product", name: "product_price_product_id_fkey"
+  add_foreign_key "users", "contact"
 end

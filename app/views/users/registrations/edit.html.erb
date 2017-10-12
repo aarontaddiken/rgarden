@@ -32,7 +32,7 @@
   </div>
 
   <div class="actions">
-    <%= f.collection_select(:contact_id, Contact.where(contact_type: 8), :id, :name, class: 'form-control', include_blank: 'Select Customer') %>
+    <%= f.collection_select(:contact_id, Contact.where(contact_type: 4), :id, :name, class: 'form-control', include_blank: 'Select Customer') %>
   </div>
 
   <div class="actions">

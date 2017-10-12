@@ -1,5 +1,6 @@
 class Contact < ApplicationRecord
 self.table_name = 'contact'
+  has_many :users
   has_many :billtos, class_name: 'Contact', foreign_key: "billto_id"
   belongs_to :billto, class_name: "Contact"
   # belongs_to :rep

@@ -27,7 +27,7 @@
   </div>
 
   <div class="actions">
-    <%= f.collection_select(:contact_id, Contact.where(contact_type: 8), :id, :name, class: 'form-control', include_blank: 'Select Sales Rep') %>
+    <%= f.submit "Sign up" %>
   </div>
 
   <div class="actions">
@@ -35,11 +35,10 @@
   </div>
 <% end %>
 
-<%= render "devise/shared/links" %>
+     <%= render "users/shared/links" %>
     </div>
     <div class="col">
     </div>
   </div>
 </div>
-
 
