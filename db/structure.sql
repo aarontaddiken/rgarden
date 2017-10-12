@@ -141,7 +141,8 @@ CREATE TABLE orders (
     total numeric(18,2) DEFAULT 0.0 NOT NULL,
     note text,
     contact_id integer NOT NULL,
-    seed_year integer DEFAULT 0 NOT NULL
+    seed_year integer DEFAULT 0 NOT NULL,
+    rep_id integer
 );
 
 
@@ -254,7 +255,8 @@ CREATE TABLE users (
     current_sign_in_ip inet,
     last_sign_in_ip inet,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    contact_id bigint
 );
 
 
@@ -370,6 +372,13 @@ ALTER TABLE ONLY users
 
 
 --
+-- Name: index_users_on_contact_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_users_on_contact_id ON users USING btree (contact_id);
+
+
+--
 -- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -422,6 +431,14 @@ ALTER TABLE ONLY order_item
 
 
 --
+-- Name: users fk_rails_183544a5de; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT fk_rails_183544a5de FOREIGN KEY (contact_id) REFERENCES contact(id);
+
+
+--
 -- Name: order_shipment order_shipment_order_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -454,6 +471,8 @@ SET search_path TO "$user", public;
 INSERT INTO "schema_migrations" (version) VALUES
 ('0'),
 ('20171010225242'),
-('20171011220452');
+('20171011220452'),
+('20171012010339'),
+('20171012034637');
 
 
