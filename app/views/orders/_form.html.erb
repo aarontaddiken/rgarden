@@ -58,6 +58,7 @@
       </div>
     </div>
   </div>
+  <%# if @order.id.present? %>
   <div class="card">
     <div class="card-header" role="tab" id="headingTwo">
       <h5 class="mb-0">
@@ -66,15 +67,22 @@
         </a>
       </h5>
     </div>
-    <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+    <div id="collapseTwo" class="collapse show" role="tabpanel" aria-labelledby="headingTwo">
       <div class="card-block">
-        <% if @order.id.present? %>
-          I have an ID YAY!
-        <% else %>
-         I need an ID before I can make items ;-)
-        <% end %>
+        <div class="well well-lg">
+          <%= form.fields_for :order_items do |p| %>
+          <%= p.label :product_id %>
+            <%= p.collection_select(:product_id, Product.all, :id, :name, class: 'form-control', include_blank: "Select Product") %>
+            <%= p.text_field :qty_order %>
+            <%= p.text_field :qty_ship %>
+            <%= p.text_field :cost %>
+            <%= p.text_field :retail %>
+          <% end %>
+          <%= @order.order_items.count %>
+        </div>
       </div>
-    </div>
+       
+      </div>
   </div>
   <div class="card">
     <div class="card-header" role="tab" id="headingThree">
@@ -91,6 +99,10 @@ See Rick about this one
     </div>
   </div>
 </div>
+  I have an ID YAY!
+  <%# else %>
+  I need an ID before I can make items ;-)
+  <%# end %>
 <%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %>
 
 <% end %>

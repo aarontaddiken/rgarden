@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Ponum:</strong>
+  <strong>PO No:</strong>
   <%= @order.ponum %>
 </p>
 
@@ -39,6 +39,12 @@
   <strong>Seed year:</strong>
   <%= @order.seed_year %>
 </p>
-
+<h4 class="text-success">Order Items:</h4>
+<% @order.order_items.each do |i| %>
+  <ul>
+    <li><%= i.product.name%></li>
+  </ul>
+<% end %>
+</br>
 <%= link_to 'Edit', edit_order_path(@order) %> |
 <%= link_to 'Back', orders_path %>

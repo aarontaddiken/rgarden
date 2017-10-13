@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171012010339) do
+ActiveRecord::Schema.define(version: 20171013192936) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,14 +31,17 @@ ActiveRecord::Schema.define(version: 20171012010339) do
     t.integer "id_cs", default: 0, null: false
   end
 
-  create_table "order_item", id: false, force: :cascade do |t|
-    t.integer "id", null: false
-    t.integer "order_id", null: false
-    t.integer "product_id", null: false
-    t.integer "qty_order", null: false
-    t.integer "qty_ship", null: false
-    t.decimal "cost", precision: 18, scale: 2, null: false
-    t.decimal "retail", precision: 18, scale: 2, null: false
+  create_table "order_items", force: :cascade do |t|
+    t.bigint "order_id"
+    t.bigint "product_id"
+    t.integer "qty_order"
+    t.integer "qty_ship"
+    t.decimal "cost"
+    t.decimal "retail"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_order_items_on_order_id"
+    t.index ["product_id"], name: "index_order_items_on_product_id"
   end
 
   create_table "order_shipment", id: :integer, default: nil, force: :cascade do |t|
@@ -56,6 +59,7 @@ ActiveRecord::Schema.define(version: 20171012010339) do
     t.text "note"
     t.integer "contact_id", null: false
     t.integer "seed_year", default: 0, null: false
+    t.integer "rep_id"
   end
 
   create_table "product", id: :integer, default: nil, force: :cascade do |t|
@@ -98,8 +102,8 @@ ActiveRecord::Schema.define(version: 20171012010339) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "order_item", "orders", name: "fk_orders", on_update: :cascade, on_delete: :cascade
-  add_foreign_key "order_item", "product", name: "fk_product", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "order_items", "orders"
+  add_foreign_key "order_items", "product"
   add_foreign_key "order_shipment", "orders", name: "order_shipment_order_id_fkey", on_update: :cascade, on_delete: :cascade
   add_foreign_key "orders", "contact", name: "fk_contact", on_update: :cascade, on_delete: :cascade
   add_foreign_key "product_price", "contact", column: "billto_id", name: "product_price_billto_id_fkey"

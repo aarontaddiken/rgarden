@@ -1,19 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  id: 1
   order: one
   product: one
   qty_order: 1
   qty_ship: 1
-  cost: 9.99
-  retail: 9.99
+  cost: 
+  retail: 
 
 two:
-  id: 1
   order: two
   product: two
   qty_order: 1
   qty_ship: 1
-  cost: 9.99
-  retail: 9.99
+  cost: 
+  retail: 

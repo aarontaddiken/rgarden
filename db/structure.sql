@@ -102,18 +102,39 @@ ALTER SEQUENCE contact_id_seq OWNED BY contact.id;
 
 
 --
--- Name: order_item; Type: TABLE; Schema: public; Owner: -
+-- Name: order_items; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE order_item (
-    id integer NOT NULL,
-    order_id integer NOT NULL,
-    product_id integer NOT NULL,
-    qty_order integer NOT NULL,
-    qty_ship integer NOT NULL,
-    cost numeric(18,2) NOT NULL,
-    retail numeric(18,2) NOT NULL
+CREATE TABLE order_items (
+    id bigint NOT NULL,
+    order_id bigint,
+    product_id bigint,
+    qty_order integer,
+    qty_ship integer,
+    cost numeric,
+    retail numeric,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
+
+
+--
+-- Name: order_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE order_items_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: order_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE order_items_id_seq OWNED BY order_items.id;
 
 
 --
@@ -287,6 +308,13 @@ ALTER TABLE ONLY contact ALTER COLUMN id SET DEFAULT nextval('contact_id_seq'::r
 
 
 --
+-- Name: order_items id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY order_items ALTER COLUMN id SET DEFAULT nextval('order_items_id_seq'::regclass);
+
+
+--
 -- Name: orders id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -321,6 +349,14 @@ ALTER TABLE ONLY ar_internal_metadata
 
 ALTER TABLE ONLY contact
     ADD CONSTRAINT contact_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: order_items order_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY order_items
+    ADD CONSTRAINT order_items_pkey PRIMARY KEY (id);
 
 
 --
@@ -372,6 +408,20 @@ ALTER TABLE ONLY users
 
 
 --
+-- Name: index_order_items_on_order_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_order_items_on_order_id ON order_items USING btree (order_id);
+
+
+--
+-- Name: index_order_items_on_product_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_order_items_on_product_id ON order_items USING btree (product_id);
+
+
+--
 -- Name: index_users_on_contact_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -415,27 +465,27 @@ ALTER TABLE ONLY orders
 
 
 --
--- Name: order_item fk_orders; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY order_item
-    ADD CONSTRAINT fk_orders FOREIGN KEY (order_id) REFERENCES orders(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: order_item fk_product; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY order_item
-    ADD CONSTRAINT fk_product FOREIGN KEY (product_id) REFERENCES product(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
 -- Name: users fk_rails_183544a5de; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users
     ADD CONSTRAINT fk_rails_183544a5de FOREIGN KEY (contact_id) REFERENCES contact(id);
+
+
+--
+-- Name: order_items fk_rails_e3cb28f071; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY order_items
+    ADD CONSTRAINT fk_rails_e3cb28f071 FOREIGN KEY (order_id) REFERENCES orders(id);
+
+
+--
+-- Name: order_items fk_rails_f1a29ddd47; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY order_items
+    ADD CONSTRAINT fk_rails_f1a29ddd47 FOREIGN KEY (product_id) REFERENCES product(id);
 
 
 --
@@ -473,6 +523,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171010225242'),
 ('20171011220452'),
 ('20171012010339'),
-('20171012034637');
+('20171012034637'),
+('20171013173006'),
+('20171013192936'),
+('20171013214744');
 
 
