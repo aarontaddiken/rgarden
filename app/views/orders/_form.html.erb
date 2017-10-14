@@ -24,33 +24,42 @@
     <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
   <div class="card-block">
 
-  <div class="field">
-    <%= form.label :contact_id, 'OSH Store' %>
-    <%= form.collection_select(:contact_id, Contact.where(contact_type: 4), :id, :name, class: 'form-control', include_blank: 'Select Customer') %>
+<div class="row">
+  <div class="col-md-12">
+        <div class="row">
+      <div class="col-xs-6 col-sm-6">
+        <div class="form-group">
+        <label>Customer</label></br>
+        <%= form.collection_select(:contact_id, Contact.where(contact_type: 4), :id, :name, {include_blank: "Select Product"}, {class: 'form-control'}) %>
+        </div>
+      </div>
+      <div class="col-xs-6 col-sm-6">
+        <div class="form-group">
+          <label class="col-form-label" for="inputDefault">PO Number</label>
+          <%= form.text_field :ponum, class: "form-control" %>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-6 col-sm-6">
+        <div class="form-group">
+          <label class="col-form-label" for="inputDefault">Order Date</label>
+          <% if @order.order_date? %>
+           <%= form.date_field :order_date, class: 'form-control' %>
+          <% else %>
+           <%= form.date_field :order_date, :value => DateTime.now.strftime('%Y-%m-%d'), class: 'form-control' %>
+          <% end %>
+        </div>
+      </div>
+      <div class="col-xs-6 col-sm-6">
+        <div class="form-group">
+          <label class="col-form-label" for="inputDefault">Note</label>
+          <%= form.text_field :note, class: "form-control" %>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div class="field">
-    <%= form.label :ponum, 'PO Number' %>
-    <%= form.text_field :ponum, id: :order_ponum %>
-  </div>
-
-  <div class="field">
-    <%= form.label :order_date, 'Order Date' %>
-    <% if @order.order_date? %>
-    <%= form.date_field :order_date %>
-    <% else %>
-    <%= form.date_field :order_date, :value => DateTime.now.strftime('%Y-%m-%d') %>
-    <% end %>
-  </div>
-
-    <%= form.hidden_field :rep_id, value: current_user.contact.id %>
-
-
-  <div class="field">
-    <%= form.label :note %></br>
-    <%= form.text_area :note, id: :order_note %>
-  </div>
-
+</div>
 
   <div class="actions">
     <%= form.submit class: 'btn btn-primary' %>
@@ -58,7 +67,7 @@
       </div>
     </div>
   </div>
-  <%# if @order.id.present? %>
+  <% if @order.id.present? %>
   <div class="card">
     <div class="card-header" role="tab" id="headingTwo">
       <h5 class="mb-0">
@@ -71,18 +80,49 @@
       <div class="card-block">
         <div class="well well-lg">
           <%= form.fields_for :order_items do |p| %>
-          <%= p.label :product_id %>
-            <%= p.collection_select(:product_id, Product.all, :id, :name, class: 'form-control', include_blank: "Select Product") %>
-            <%= p.text_field :qty_order %>
-            <%= p.text_field :qty_ship %>
-            <%= p.text_field :cost %>
-            <%= p.text_field :retail %>
+
+          <div class='form-group'>
+            <label>Products</label></br>
+            <%= p.collection_select(:product_id, Product.all, :id, :name, {include_blank: "Select Product"}, {class: 'form-control'}) %>
+          </div>
+
+          <div class="form-group">
+            <label class="col-form-label" for="inputDefault">Order Quantity</label>
+            <%= p.text_field :qty_order, class: 'form-control', id: 'inputDefault' %>
+          </div>
+          <div class="form-group">
+            <label class="col-form-label" for="inputDefault">Shipping Quantity</label>
+            <%= p.text_field :qty_ship, class: 'form-control', id: 'inputDefault' %>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label">Cost</label>
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-addon">$</div>
+                 <%= p.text_field :cost, class: 'form-control', placeholder: 'Amount', value: (number_with_precision(p.object.cost, :precision => 2) || 0) %>
+                <div class="input-group-addon"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label">Retail</label>
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-addon">$</div>
+                 <%= p.text_field :retail, class: 'form-control', placeholder: 'Amount', value: (number_with_precision(p.object.cost, :precision => 2) || 0) %>
+                <div class="input-group-addon"></div>
+              </div>
+            </div>
+          </div>
+
+         <%= form.submit class: 'btn btn-primary' %>
           <% end %>
-          <%= @order.order_items.count %>
+        </div>
         </div>
       </div>
        
-      </div>
   </div>
   <div class="card">
     <div class="card-header" role="tab" id="headingThree">
@@ -99,10 +139,9 @@ See Rick about this one
     </div>
   </div>
 </div>
-  I have an ID YAY!
-  <%# else %>
-  I need an ID before I can make items ;-)
-  <%# end %>
+  <% else %>
+  <% end %>
 <%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %>
 
 <% end %>
+

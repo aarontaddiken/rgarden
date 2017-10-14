@@ -9,41 +9,7 @@
   </head>
 
   <body>
-<% if user_signed_in? %>
-      <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <% if user_signed_in? %>
-       <%= link_to('Logout', destroy_user_session_path, method: :delete) %>   
-       <%= link_to "User Info", edit_user_registration_path %>     
-      <% else %>
-       <%= link_to('Login', new_user_session_path)  %>  
-
-<% end %>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item active">
-            <%= link_to "Contacts", contacts_path %>
-          </li>
-          <li class="nav-item">
-            <%= link_to "Orders", orders_path %>
-          </li>
-          <li class="nav-item">
-            <%= link_to "Products", products_path %>
-          </li>
-          <li class="nav-item">
-            <%= link_to "Order Shipments", order_shipments_path %>
-          </li>
-          <li class="nav-item">
-            <%= link_to "Product Prices", product_prices_path %>
-          </li>
-        </ul>
-      </div>
-      <% else %>
-
-      <% end %>
-    </nav>
+    <%= render 'layouts/nav' %>
     <p class="alert"><%= alert %></p>
     <%= yield %>
   </body>

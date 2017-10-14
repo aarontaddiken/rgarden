@@ -1,0 +1,42 @@
+ <div class="navbar navbar-toggleable-md fixed-top navbar-inverse bg-primary">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <a href="../" class="navbar-brand">Orders</a>
+          <ul class="navbar-nav">
+            
+            <li class="nav-item">
+              <a class="nav-link" href="../contacts/">Customers</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/products">Products</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="download">more stuff... <span class="caret"></span></a>
+              <div class="dropdown-menu" aria-labelledby="download">
+                <a class="dropdown-item" href="/order_shipments">Order Shipments</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="./product_prices">Product Prices</a>
+                <a class="dropdown-item" href="/order_items">Order Items</a>
+              </div>
+            </li>
+          </ul>
+
+          <ul class="nav navbar-nav ml-auto">
+            <li class="nav-item">
+          <% if user_signed_in? %>
+            <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: 'nav-link' %>
+          <% else %>
+            <%= link_to "Sign In", new_user_session_path %>
+          <% end %>
+            </li>
+          <% if user_signed_in? %>
+            <%= link_to "#{current_user.email}", edit_user_registration_path, class: 'nav-link' %>
+          <% else %>
+          <% end %>
+            </li>
+          </ul>
+
+        </div>
+    </div>
