@@ -20,50 +20,48 @@
         </a>
       </h5>
     </div>
-
     <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
-  <div class="card-block">
+      <div class="card-block">
 
-<div class="row">
-  <div class="col-md-12">
         <div class="row">
-      <div class="col-xs-6 col-sm-6">
-        <div class="form-group">
-        <label>Customer</label></br>
-        <%= form.collection_select(:contact_id, Contact.where(contact_type: 4), :id, :name, {include_blank: "Select Product"}, {class: 'form-control'}) %>
+          <div class="col-md-12">
+            <div class="row">
+               <div class="col-xs-6 col-sm-6">
+                 <div class="form-group">
+                   <label>Customer</label></br>
+                     <%= form.collection_select(:contact_id, Contact.where(contact_type: 4), :id, :name, {include_blank: "Select Product"}, {class: 'form-control'}) %>
+                 </div>
+               </div>
+               <div class="col-xs-6 col-sm-6">
+                <div class="form-group">
+                  <label class="col-form-label" for="inputDefault">PO Number</label>
+                  <%= form.text_field :ponum, class: "form-control" %>
+                </div>
+               </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-6 col-sm-6">
+                <div class="form-group">
+                  <label class="col-form-label" for="inputDefault">Order Date</label>
+                  <% if @order.order_date? %>
+                   <%= form.date_field :order_date, class: 'form-control' %>
+                  <% else %>
+                   <%= form.date_field :order_date, :value => DateTime.now.strftime('%Y-%m-%d'), class: 'form-control' %>
+                  <% end %>
+                </div>
+              </div>
+              <div class="col-xs-6 col-sm-6">
+                <div class="form-group">
+                  <label class="col-form-label" for="inputDefault">Note</label>
+                  <%= form.text_field :note, class: "form-control" %>
+                </div>
+              </div>
+              <div class="actions">
+                <%= form.submit class: 'btn btn-primary' %>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="col-xs-6 col-sm-6">
-        <div class="form-group">
-          <label class="col-form-label" for="inputDefault">PO Number</label>
-          <%= form.text_field :ponum, class: "form-control" %>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-xs-6 col-sm-6">
-        <div class="form-group">
-          <label class="col-form-label" for="inputDefault">Order Date</label>
-          <% if @order.order_date? %>
-           <%= form.date_field :order_date, class: 'form-control' %>
-          <% else %>
-           <%= form.date_field :order_date, :value => DateTime.now.strftime('%Y-%m-%d'), class: 'form-control' %>
-          <% end %>
-        </div>
-      </div>
-      <div class="col-xs-6 col-sm-6">
-        <div class="form-group">
-          <label class="col-form-label" for="inputDefault">Note</label>
-          <%= form.text_field :note, class: "form-control" %>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-  <div class="actions">
-    <%= form.submit class: 'btn btn-primary' %>
-  </div>
       </div>
     </div>
   </div>
@@ -78,70 +76,59 @@
     </div>
     <div id="collapseTwo" class="collapse show" role="tabpanel" aria-labelledby="headingTwo">
       <div class="card-block">
-        <div class="well well-lg">
-          <%= form.fields_for :order_items do |p| %>
-
-          <div class='form-group'>
-            <label>Products</label></br>
-            <%= p.collection_select(:product_id, Product.all, :id, :name, {include_blank: "Select Product"}, {class: 'form-control'}) %>
-          </div>
-
-          <div class="form-group">
-            <label class="col-form-label" for="inputDefault">Order Quantity</label>
-            <%= p.text_field :qty_order, class: 'form-control', id: 'inputDefault' %>
-          </div>
-          <div class="form-group">
-            <label class="col-form-label" for="inputDefault">Shipping Quantity</label>
-            <%= p.text_field :qty_ship, class: 'form-control', id: 'inputDefault' %>
-          </div>
-
-          <div class="form-group">
-            <label class="control-label">Cost</label>
+        <%= form.fields_for :order_items do |p| %>
+        <div class="row">
+          <div class="col-xs-6 col-sm-2">
             <div class="form-group">
-              <div class="input-group">
-                <div class="input-group-addon">$</div>
-                 <%= p.text_field :cost, class: 'form-control', placeholder: 'Amount', value: (number_with_precision(p.object.cost, :precision => 2) || 0) %>
-                <div class="input-group-addon"></div>
-              </div>
+              <label>Item #</label></br>
+              <%#= p.collection_select(:product_id, Product.all, :id, :name, {include_blank: "Select Product"}, {class: 'form-control'}) %>
+               <%#= form.fields_for :products do |i| %>
+                <%= p.text_field :product_id, {class: 'form-control'} %>
+               <%# end %> 
             </div>
           </div>
-
-          <div class="form-group">
-            <label class="control-label">Retail</label>
+          <div class="col-xs-6 col-sm-2">
             <div class="form-group">
-              <div class="input-group">
-                <div class="input-group-addon">$</div>
-                 <%= p.text_field :retail, class: 'form-control', placeholder: 'Amount', value: (number_with_precision(p.object.retail, :precision => 2) || 0) %>
-                <div class="input-group-addon"></div>
-              </div>
+              <label class="col-form-label" for="inputDefault">Itm Qty</label>
+              <%= p.text_field :qty_order, class: 'form-control', id: 'inputDefault' %>
             </div>
           </div>
-
-         <%= form.submit class: 'btn btn-primary' %>
-          <% end %>
+          <div class="col-xs-6 col-sm-2">
+            <div class="form-group">
+              <label class="col-form-label" for="inputDefault">Ship Qty</label>
+              <%= p.text_field :qty_ship, class: 'form-control', id: 'inputDefault' %>
+            </div>
+          </div>
+          <div class="col-xs-6 col-sm-2">
+            <div class="form-group">
+              <label class="control-label">Cost</label>
+                <div class="input-group">
+                  <!-- <div class="input-group-addon">$</div> -->
+                   <%= p.text_field :cost, class: 'form-control', placeholder: 'Amount', value: (number_with_precision(p.object.cost, :precision => 2) || 0) %>
+                  <!-- <div class="input-group-addon"></div> -->
+                </div>
+            </div>
+          </div>
+          <div class="col-xs-6 col-sm-4">
+            <div class="form-group">
+              <label class="control-label">Retail</label>
+                <div class="input-group">
+                  <!-- <div class="input-group-addon">$</div> -->
+                   <%= p.text_field :retail, class: 'form-control', placeholder: 'Amount', value: (number_with_precision(p.object.retail, :precision => 2) || 0) %>
+                   <%= form.submit class: 'btn btn-sm btn-success' %>
+                  <!-- <div class="input-group-addon"></div> -->
+                </div>
+            </div>    
+          </div>
         </div>
-        </div>
+      <hr></hr>
+    <% end %>
       </div>
-       
   </div>
-  <div class="card">
-    <div class="card-header" role="tab" id="headingThree">
-      <h5 class="mb-0">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-          Total by SKU
-        </a>
-      </h5>
-    </div>
-    <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
-      <div class="card-block">
-See Rick about this one
-      </div>
-    </div>
-  </div>
-</div>
   <% else %>
   <% end %>
+<% end %>
+</div>
 <%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %>
 
-<% end %>
 

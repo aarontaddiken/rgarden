@@ -6,6 +6,7 @@
   <thead>
     <tr>
       <th>Company</th>
+      <th>Id (Item #)</th>
       <th>Name</th>
       <th>Product type</th>
       <th>Upc</th>
@@ -19,6 +20,7 @@
     <% @products.each do |product| %>
       <tr>
         <td><%= product.contact.name %></td>
+        <td><%= product.id %></td>
         <td><%= product.name %></td>
         <td><%= product.upc %></td>
         <td><%= product.sku %></td>
